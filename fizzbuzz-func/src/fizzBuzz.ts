@@ -1,21 +1,25 @@
-import { curry, pipe, map } from 'lodash/fp';
 import { isNumber } from 'lodash';
+import { curry, pipe, map } from 'lodash/fp';
+
+const isMultiple = (number: number, multiple: number) => number % multiple === 0;
 
 const transformer = (multiples: number[], replacement: string, value: number | string) => {
-  if (!isNumber(value) || multiples.some((number) => value % number !== 0)) {
+  if (!isNumber(value)) {
     return value;
   }
 
-  return replacement;
+  const isMultipleOfValue = curry(isMultiple)(value);
+
+  return multiples.every(isMultipleOfValue) ? replacement : value;
 };
 
-const fizzBuzzTransformer = curry(transformer)([3, 5], 'FizzBuzz');
-const fizzTransformer = curry(transformer)([3], 'Fizz');
-const buzzTransformer = curry(transformer)([5], 'Buzz');
+const fizzBuzzier = curry(transformer)([3, 5], 'FizzBuzz');
+const fizzier = curry(transformer)([3], 'Fizz');
+const buzzier = curry(transformer)([5], 'Buzz');
 
 export const fizzBuzz = pipe(
-  map(fizzBuzzTransformer),
-  map(fizzTransformer),
-  map(buzzTransformer),
+  map(fizzBuzzier),
+  map(fizzier),
+  map(buzzier),
   map(String),
 );
