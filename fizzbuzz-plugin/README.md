@@ -1,3 +1,3 @@
-# Skeleton for practicing
+# FizzBuzz
 
-- `yarn` and play!
+This solution explores a plugin-based "architecture" (quite a big word for a so simple solution).
