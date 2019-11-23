@@ -1,6 +1,6 @@
-import { writeFileSync } from "fs";
 import { options } from "yargs";
-import { Board } from "./Board";
+import { BoardReader } from "./BoardReader";
+import { BoardWriter } from "./BoardWriter";
 
 function App() {
   const { argv } = options({
@@ -9,23 +9,9 @@ function App() {
     iterations: { type: "number", default: 1 },
   });
 
-  if (argv.iterations < 1) {
-    process.exit(1);
-  }
+  const board = new BoardReader().readFromFile({ path: argv.input });
 
-  const board = Board.fromFile(argv.input);
-  const result = Array(argv.iterations)
-    .fill(null)
-    .reduce((previous: Board) => previous.evolve(), board);
-
-  writeFileSync(
-    argv.output,
-    result
-      .toArray()
-      .map((row) => row.join(" "))
-      .join("\n"),
-    { encoding: "utf-8" },
-  );
+  new BoardWriter(board.evolve(argv.iterations)).writeToFile({ path: argv.output });
 }
 
 App();
