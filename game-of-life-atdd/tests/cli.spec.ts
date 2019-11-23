@@ -9,7 +9,7 @@ describe("cli", () => {
     it("supports underpopulation", async () => {
       const outputFilename = join(__dirname, "./results/underpopulation");
 
-      exec(`${subject} --input=${join(__dirname, "./fixtures/underpopulation")} --output=${outputFilename}`);
+      play(`${subject} --input=${join(__dirname, "./fixtures/underpopulation")} --output=${outputFilename}`);
 
       const result = getResult(outputFilename);
 
@@ -19,7 +19,7 @@ describe("cli", () => {
     it("supports overpopulation", async () => {
       const outputFilename = join(__dirname, "./results/overpopulation");
 
-      exec(`${subject} --input=${join(__dirname, "./fixtures/overpopulation")} --output=${outputFilename}`);
+      play(`${subject} --input=${join(__dirname, "./fixtures/overpopulation")} --output=${outputFilename}`);
 
       const result = getResult(outputFilename);
 
@@ -29,7 +29,7 @@ describe("cli", () => {
     it("supports ideal conditions", async () => {
       const outputFilename = join(__dirname, "./results/ideal");
 
-      exec(`${subject} --input=${join(__dirname, "./fixtures/ideal")} --output=${outputFilename}`);
+      play(`${subject} --input=${join(__dirname, "./fixtures/ideal")} --output=${outputFilename}`);
 
       const result = getResult(outputFilename);
 
@@ -39,16 +39,48 @@ describe("cli", () => {
     it("supports revival", async () => {
       const outputFilename = join(__dirname, "./results/revival");
 
-      exec(`${subject} --input=${join(__dirname, "./fixtures/revival")} --output=${outputFilename}`);
+      play(`${subject} --input=${join(__dirname, "./fixtures/revival")} --output=${outputFilename}`);
 
       const result = getResult(outputFilename);
 
       expect(result).toEqual(["1 1 0", "1 1 0", "0 0 0"].join("\n"));
     });
   });
+
+  describe("with --iterations", () => {
+    it("throws an error if the number of iterations is smaller than 1", async () => {
+      expect(() =>
+        play(
+          `${subject} --input=${join(__dirname, "./fixtures/revival")} --output=${join(
+            __dirname,
+            "./results/revival",
+          )} --iterations=0`,
+        ),
+      ).toThrowError();
+
+      expect(() =>
+        play(
+          `${subject} --input=${join(__dirname, "./fixtures/revival")} --output=${join(
+            __dirname,
+            "./results/revival",
+          )} --iterations=-1`,
+        ),
+      ).toThrowError();
+    });
+
+    it("performs the specific number of iterations", async () => {
+      const outputFilename = join(__dirname, "./results/iterations");
+
+      play(`${subject} --input=${join(__dirname, "./fixtures/iterations")} --output=${outputFilename} --iterations=2`);
+
+      const result = getResult(outputFilename);
+
+      expect(result).toEqual(["0 0 0", "0 1 0", "0 1 0"].join("\n"));
+    });
+  });
 });
 
-function exec(cmd: string) {
+function play(cmd: string) {
   return execSync(`npx ts-node ${cmd}`);
 }
 
