@@ -1,4 +1,5 @@
 import { Card, CardOptions } from "../Card";
+import { CardFactory } from "../CardFactory";
 
 export class Ace extends Card {
   constructor(options: CardOptions) {
@@ -10,7 +11,7 @@ export class Ace extends Card {
   }
 
   public get next() {
-    return new Card("2", this.options);
+    return new CardFactory().build("2", this.options);
   }
 
   public get index() {

@@ -1,4 +1,5 @@
 import { isEqual } from "lodash";
+import { CardFactory } from "./CardFactory";
 
 type Suit = "Hearts" | "Diamonds" | "Clubs" | "Spades" | "None";
 
@@ -6,7 +7,7 @@ export type CardOptions = {
   suit: Suit;
 };
 
-export class Card {
+export abstract class Card {
   constructor(private _rank: string, protected options: CardOptions) {}
 
   public get rank(): string {
@@ -53,31 +54,31 @@ export class Card {
   public get next(): Card {
     switch (this.rank) {
       case "2":
-        return new Card("3", this.options);
+        return new CardFactory().build("3", this.options);
       case "3":
-        return new Card("4", this.options);
+        return new CardFactory().build("4", this.options);
       case "4":
-        return new Card("5", this.options);
+        return new CardFactory().build("5", this.options);
       case "5":
-        return new Card("6", this.options);
+        return new CardFactory().build("6", this.options);
       case "6":
-        return new Card("7", this.options);
+        return new CardFactory().build("7", this.options);
       case "7":
-        return new Card("8", this.options);
+        return new CardFactory().build("8", this.options);
       case "8":
-        return new Card("9", this.options);
+        return new CardFactory().build("9", this.options);
       case "9":
-        return new Card("10", this.options);
+        return new CardFactory().build("10", this.options);
       case "10":
-        return new Card("J", this.options);
+        return new CardFactory().build("J", this.options);
       case "J":
-        return new Card("Q", this.options);
+        return new CardFactory().build("Q", this.options);
       case "Q":
-        return new Card("K", this.options);
+        return new CardFactory().build("K", this.options);
       case "K":
-        return new Card("A", this.options);
+        return new CardFactory().build("A", this.options);
       case "∞":
-        return new Card("A", this.options);
+        return new CardFactory().build("A", this.options);
       default:
         throw new Error("Unkown rank");
     }

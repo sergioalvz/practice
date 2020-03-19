@@ -1,6 +1,5 @@
-import { Cards } from "../src/Cards";
-import { Card } from "../src/Card";
 import { CardFactory } from "../src/CardFactory";
+import { Cards } from "../src/Cards";
 
 describe("Cards", () => {
   describe("#getScore", () => {
@@ -14,14 +13,14 @@ describe("Cards", () => {
 
     it("returns 5 points for each 2-9 card", () => {
       const subject = new Cards([
-        new Card("2", { suit: "Hearts" }),
-        new Card("3", { suit: "Hearts" }),
-        new Card("4", { suit: "Hearts" }),
-        new Card("5", { suit: "Hearts" }),
-        new Card("6", { suit: "Hearts" }),
-        new Card("7", { suit: "Hearts" }),
-        new Card("8", { suit: "Hearts" }),
-        new Card("9", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("3", { suit: "Hearts" }),
+        new CardFactory().build("4", { suit: "Hearts" }),
+        new CardFactory().build("5", { suit: "Hearts" }),
+        new CardFactory().build("6", { suit: "Hearts" }),
+        new CardFactory().build("7", { suit: "Hearts" }),
+        new CardFactory().build("8", { suit: "Hearts" }),
+        new CardFactory().build("9", { suit: "Hearts" }),
       ]);
 
       const score = subject.getScore();
@@ -31,10 +30,10 @@ describe("Cards", () => {
 
     it("returns 10 points for each 10 and face card", () => {
       const subject = new Cards([
-        new Card("10", { suit: "Hearts" }),
-        new Card("J", { suit: "Hearts" }),
-        new Card("Q", { suit: "Hearts" }),
-        new Card("K", { suit: "Hearts" }),
+        new CardFactory().build("10", { suit: "Hearts" }),
+        new CardFactory().build("J", { suit: "Hearts" }),
+        new CardFactory().build("Q", { suit: "Hearts" }),
+        new CardFactory().build("K", { suit: "Hearts" }),
       ]);
 
       const score = subject.getScore();
@@ -51,7 +50,7 @@ describe("Cards", () => {
     });
 
     it("returns 50 for each Jokers", () => {
-      const subject = new Cards([new Card("∞", { suit: "None" })]);
+      const subject = new Cards([new CardFactory().build("∞", { suit: "None" })]);
 
       const score = subject.getScore();
 
@@ -60,12 +59,12 @@ describe("Cards", () => {
 
     it("returns the right score if there are multiple mixed ranks", () => {
       const subject = new Cards([
-        new Card("∞", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("Q", { suit: "Hearts" }),
-        new Card("Q", { suit: "Hearts" }),
-        new Card("Q", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
+        new CardFactory().build("∞", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("Q", { suit: "Hearts" }),
+        new CardFactory().build("Q", { suit: "Hearts" }),
+        new CardFactory().build("Q", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
         new CardFactory().build("A", { suit: "Hearts" }),
       ]);
 
@@ -78,12 +77,12 @@ describe("Cards", () => {
   describe("#getTrios", () => {
     it("returns no trios if there aren't any", () => {
       const subject = new Cards([
-        new Card("∞", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("Q", { suit: "Hearts" }),
-        new Card("K", { suit: "Hearts" }),
-        new Card("J", { suit: "Hearts" }),
-        new Card("3", { suit: "Hearts" }),
+        new CardFactory().build("∞", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("Q", { suit: "Hearts" }),
+        new CardFactory().build("K", { suit: "Hearts" }),
+        new CardFactory().build("J", { suit: "Hearts" }),
+        new CardFactory().build("3", { suit: "Hearts" }),
         new CardFactory().build("A", { suit: "Hearts" }),
       ]);
 
@@ -94,12 +93,12 @@ describe("Cards", () => {
 
     it("returns the existing trio", () => {
       const subject = new Cards([
-        new Card("∞", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("J", { suit: "Hearts" }),
-        new Card("3", { suit: "Hearts" }),
+        new CardFactory().build("∞", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("J", { suit: "Hearts" }),
+        new CardFactory().build("3", { suit: "Hearts" }),
         new CardFactory().build("A", { suit: "Hearts" }),
       ]);
 
@@ -107,36 +106,36 @@ describe("Cards", () => {
 
       expect(trios).toEqual([
         new Cards([
-          new Card("2", { suit: "Hearts" }),
-          new Card("2", { suit: "Hearts" }),
-          new Card("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
         ]),
       ]);
     });
 
     it("returns multiples existing trios", () => {
       const subject = new Cards([
-        new Card("∞", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
+        new CardFactory().build("∞", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
       ]);
 
       const trios = subject.getTrios();
 
       expect(trios).toEqual([
         new Cards([
-          new Card("2", { suit: "Hearts" }),
-          new Card("2", { suit: "Hearts" }),
-          new Card("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
         ]),
         new Cards([
-          new Card("2", { suit: "Hearts" }),
-          new Card("2", { suit: "Hearts" }),
-          new Card("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
         ]),
       ]);
     });
@@ -146,12 +145,12 @@ describe("Cards", () => {
     it("returns no straights if there are not any", () => {
       const subject = new Cards([
         new CardFactory().build("A", { suit: "Hearts" }),
-        new Card("2", { suit: "Diamonds" }),
-        new Card("3", { suit: "Clubs" }),
-        new Card("4", { suit: "Clubs" }),
-        new Card("5", { suit: "Spades" }),
-        new Card("6", { suit: "Hearts" }),
-        new Card("7", { suit: "Spades" }),
+        new CardFactory().build("2", { suit: "Diamonds" }),
+        new CardFactory().build("3", { suit: "Clubs" }),
+        new CardFactory().build("4", { suit: "Clubs" }),
+        new CardFactory().build("5", { suit: "Spades" }),
+        new CardFactory().build("6", { suit: "Hearts" }),
+        new CardFactory().build("7", { suit: "Spades" }),
       ]);
 
       const trios = subject.getStraights();
@@ -162,12 +161,12 @@ describe("Cards", () => {
     it("returns the existing straight", () => {
       const subject = new Cards([
         new CardFactory().build("A", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("3", { suit: "Hearts" }),
-        new Card("4", { suit: "Hearts" }),
-        new Card("10", { suit: "Hearts" }),
-        new Card("3", { suit: "Hearts" }),
-        new Card("8", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("3", { suit: "Hearts" }),
+        new CardFactory().build("4", { suit: "Hearts" }),
+        new CardFactory().build("10", { suit: "Hearts" }),
+        new CardFactory().build("3", { suit: "Hearts" }),
+        new CardFactory().build("8", { suit: "Hearts" }),
       ]);
 
       const straights = subject.getStraights();
@@ -175,9 +174,9 @@ describe("Cards", () => {
       expect(straights).toEqual([
         new Cards([
           new CardFactory().build("A", { suit: "Hearts" }),
-          new Card("2", { suit: "Hearts" }),
-          new Card("3", { suit: "Hearts" }),
-          new Card("4", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("3", { suit: "Hearts" }),
+          new CardFactory().build("4", { suit: "Hearts" }),
         ]),
       ]);
     });
@@ -185,12 +184,12 @@ describe("Cards", () => {
     it("returns multiple existing straights", () => {
       const subject = new Cards([
         new CardFactory().build("A", { suit: "Hearts" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("3", { suit: "Hearts" }),
-        new Card("4", { suit: "Hearts" }),
-        new Card("5", { suit: "Hearts" }),
-        new Card("3", { suit: "Hearts" }),
-        new Card("8", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("3", { suit: "Hearts" }),
+        new CardFactory().build("4", { suit: "Hearts" }),
+        new CardFactory().build("5", { suit: "Hearts" }),
+        new CardFactory().build("3", { suit: "Hearts" }),
+        new CardFactory().build("8", { suit: "Hearts" }),
       ]);
 
       const straights = subject.getStraights();
@@ -198,29 +197,29 @@ describe("Cards", () => {
       expect(straights).toEqual([
         new Cards([
           new CardFactory().build("A", { suit: "Hearts" }),
-          new Card("2", { suit: "Hearts" }),
-          new Card("3", { suit: "Hearts" }),
-          new Card("4", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("3", { suit: "Hearts" }),
+          new CardFactory().build("4", { suit: "Hearts" }),
         ]),
         new Cards([
-          new Card("2", { suit: "Hearts" }),
-          new Card("3", { suit: "Hearts" }),
-          new Card("4", { suit: "Hearts" }),
-          new Card("5", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("3", { suit: "Hearts" }),
+          new CardFactory().build("4", { suit: "Hearts" }),
+          new CardFactory().build("5", { suit: "Hearts" }),
         ]),
       ]);
     });
     it("returns multiple existing straights even for multiple suits", () => {
       const subject = new Cards([
-        new Card("J", { suit: "Diamonds" }),
-        new Card("4", { suit: "Hearts" }),
+        new CardFactory().build("J", { suit: "Diamonds" }),
+        new CardFactory().build("4", { suit: "Hearts" }),
         new CardFactory().build("A", { suit: "Hearts" }),
-        new Card("10", { suit: "Diamonds" }),
-        new Card("K", { suit: "Diamonds" }),
-        new Card("2", { suit: "Hearts" }),
-        new Card("Q", { suit: "Diamonds" }),
-        new Card("3", { suit: "Hearts" }),
-        new Card("9", { suit: "Clubs" }),
+        new CardFactory().build("10", { suit: "Diamonds" }),
+        new CardFactory().build("K", { suit: "Diamonds" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("Q", { suit: "Diamonds" }),
+        new CardFactory().build("3", { suit: "Hearts" }),
+        new CardFactory().build("9", { suit: "Clubs" }),
       ]);
 
       const straights = subject.getStraights();
@@ -230,15 +229,15 @@ describe("Cards", () => {
         expect.arrayContaining([
           new Cards([
             new CardFactory().build("A", { suit: "Hearts" }),
-            new Card("2", { suit: "Hearts" }),
-            new Card("3", { suit: "Hearts" }),
-            new Card("4", { suit: "Hearts" }),
+            new CardFactory().build("2", { suit: "Hearts" }),
+            new CardFactory().build("3", { suit: "Hearts" }),
+            new CardFactory().build("4", { suit: "Hearts" }),
           ]),
           new Cards([
-            new Card("10", { suit: "Diamonds" }),
-            new Card("J", { suit: "Diamonds" }),
-            new Card("Q", { suit: "Diamonds" }),
-            new Card("K", { suit: "Diamonds" }),
+            new CardFactory().build("10", { suit: "Diamonds" }),
+            new CardFactory().build("J", { suit: "Diamonds" }),
+            new CardFactory().build("Q", { suit: "Diamonds" }),
+            new CardFactory().build("K", { suit: "Diamonds" }),
           ]),
         ]),
       );
