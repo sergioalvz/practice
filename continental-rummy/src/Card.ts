@@ -2,12 +2,12 @@ import { isEqual } from "lodash";
 
 type Suit = "Hearts" | "Diamonds" | "Clubs" | "Spades" | "None";
 
-type CardOptions = {
+export type CardOptions = {
   suit: Suit;
 };
 
 export class Card {
-  constructor(private _rank: string, private options: CardOptions) {}
+  constructor(private _rank: string, protected options: CardOptions) {}
 
   public get rank(): string {
     return this._rank;
@@ -19,8 +19,6 @@ export class Card {
 
   public get index(): number {
     switch (this.rank) {
-      case "A":
-        return 1;
       case "2":
         return 2;
       case "3":
@@ -54,8 +52,6 @@ export class Card {
 
   public get next(): Card {
     switch (this.rank) {
-      case "A":
-        return new Card("2", this.options);
       case "2":
         return new Card("3", this.options);
       case "3":
@@ -107,8 +103,6 @@ export class Card {
       case "Q":
       case "K":
         return 10;
-      case "A":
-        return 20;
       case "∞":
         return 50;
       default:

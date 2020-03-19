@@ -1,5 +1,6 @@
 import { Cards } from "../src/Cards";
 import { Card } from "../src/Card";
+import { CardFactory } from "../src/CardFactory";
 
 describe("Cards", () => {
   describe("#getScore", () => {
@@ -42,7 +43,7 @@ describe("Cards", () => {
     });
 
     it("returns 20 for each ace", () => {
-      const subject = new Cards([new Card("A", { suit: "Hearts" })]);
+      const subject = new Cards([new CardFactory().build("A", { suit: "Hearts" })]);
 
       const score = subject.getScore();
 
@@ -65,7 +66,7 @@ describe("Cards", () => {
         new Card("Q", { suit: "Hearts" }),
         new Card("Q", { suit: "Hearts" }),
         new Card("2", { suit: "Hearts" }),
-        new Card("A", { suit: "Hearts" }),
+        new CardFactory().build("A", { suit: "Hearts" }),
       ]);
 
       const score = subject.getScore();
@@ -83,7 +84,7 @@ describe("Cards", () => {
         new Card("K", { suit: "Hearts" }),
         new Card("J", { suit: "Hearts" }),
         new Card("3", { suit: "Hearts" }),
-        new Card("A", { suit: "Hearts" }),
+        new CardFactory().build("A", { suit: "Hearts" }),
       ]);
 
       const trios = subject.getTrios();
@@ -99,7 +100,7 @@ describe("Cards", () => {
         new Card("2", { suit: "Hearts" }),
         new Card("J", { suit: "Hearts" }),
         new Card("3", { suit: "Hearts" }),
-        new Card("A", { suit: "Hearts" }),
+        new CardFactory().build("A", { suit: "Hearts" }),
       ]);
 
       const trios = subject.getTrios();
@@ -144,7 +145,7 @@ describe("Cards", () => {
   describe("#getStraights", () => {
     it("returns no straights if there are not any", () => {
       const subject = new Cards([
-        new Card("A", { suit: "Hearts" }),
+        new CardFactory().build("A", { suit: "Hearts" }),
         new Card("2", { suit: "Diamonds" }),
         new Card("3", { suit: "Clubs" }),
         new Card("4", { suit: "Clubs" }),
@@ -160,7 +161,7 @@ describe("Cards", () => {
 
     it("returns the existing straight", () => {
       const subject = new Cards([
-        new Card("A", { suit: "Hearts" }),
+        new CardFactory().build("A", { suit: "Hearts" }),
         new Card("2", { suit: "Hearts" }),
         new Card("3", { suit: "Hearts" }),
         new Card("4", { suit: "Hearts" }),
@@ -173,7 +174,7 @@ describe("Cards", () => {
 
       expect(straights).toEqual([
         new Cards([
-          new Card("A", { suit: "Hearts" }),
+          new CardFactory().build("A", { suit: "Hearts" }),
           new Card("2", { suit: "Hearts" }),
           new Card("3", { suit: "Hearts" }),
           new Card("4", { suit: "Hearts" }),
@@ -183,7 +184,7 @@ describe("Cards", () => {
 
     it("returns multiple existing straights", () => {
       const subject = new Cards([
-        new Card("A", { suit: "Hearts" }),
+        new CardFactory().build("A", { suit: "Hearts" }),
         new Card("2", { suit: "Hearts" }),
         new Card("3", { suit: "Hearts" }),
         new Card("4", { suit: "Hearts" }),
@@ -196,7 +197,7 @@ describe("Cards", () => {
 
       expect(straights).toEqual([
         new Cards([
-          new Card("A", { suit: "Hearts" }),
+          new CardFactory().build("A", { suit: "Hearts" }),
           new Card("2", { suit: "Hearts" }),
           new Card("3", { suit: "Hearts" }),
           new Card("4", { suit: "Hearts" }),
@@ -213,7 +214,7 @@ describe("Cards", () => {
       const subject = new Cards([
         new Card("J", { suit: "Diamonds" }),
         new Card("4", { suit: "Hearts" }),
-        new Card("A", { suit: "Hearts" }),
+        new CardFactory().build("A", { suit: "Hearts" }),
         new Card("10", { suit: "Diamonds" }),
         new Card("K", { suit: "Diamonds" }),
         new Card("2", { suit: "Hearts" }),
@@ -228,7 +229,7 @@ describe("Cards", () => {
       expect(straights).toEqual(
         expect.arrayContaining([
           new Cards([
-            new Card("A", { suit: "Hearts" }),
+            new CardFactory().build("A", { suit: "Hearts" }),
             new Card("2", { suit: "Hearts" }),
             new Card("3", { suit: "Hearts" }),
             new Card("4", { suit: "Hearts" }),
