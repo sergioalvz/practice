@@ -20,6 +20,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@types/jest": "^25.1.4",
+    "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.30",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
@@ -32,5 +33,7 @@
     "tslint-sonarts": "^1.9.0",
     "typescript": "^3.8.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
 }
