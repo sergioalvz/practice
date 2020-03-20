@@ -8,7 +8,7 @@ describe("Game", () => {
       subject = new Game();
     });
 
-    it("returns the minimum number of cards to perfom the game plus one additional one", async () => {
+    it("returns the minimum number of cards to complete the hand plus one additional one", async () => {
       expect(subject.getNumberOfCardsToDeal({ trios: 2, straights: 0 })).toBe(7);
       expect(subject.getNumberOfCardsToDeal({ trios: 1, straights: 1 })).toBe(8);
       expect(subject.getNumberOfCardsToDeal({ trios: 0, straights: 3 })).toBe(13);
