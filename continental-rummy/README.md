@@ -3,8 +3,6 @@
 - [Español](#espa%c3%b1ol)
 - [English](#english)
 
----
-
 ## Español
 
 El juego de cartas [Continental][continental-es] es un juego de estrategia y azar, que consiste en realizar una serie de combinaciones (diferentes en cada ronda) con el conjunto de cartas que se tienen en la mano.
@@ -44,14 +42,15 @@ Nuestro sistema deberá estar preparado para, a partir de una colección de cart
 
 #### #3 Identificar tríos
 
-> Nota: Ignorar comodines
+> **_Ignorar comodines_**
 
 Como una siguiente evolución, nuestro sistema debe ser capaz de identificar, a partir de una colleción de cartas, los tríos existentes (grupos de 3 cartas del mismo número. Ejemplo: Tres doses).
 
 #### #4 Identificar escaleras
 
-> Nota: Ignorar comodines
-> Nota 2: Ignorar escaleras del tipo "Q-K-A-2"
+> **_Ignorar comodines_**
+>
+> **_Ignorar escaleras del tipo "Q-K-A-2"_**
 
 Ahora, nuestro sistema debe ser capaz de identificar, a partir de una colleción de cartas, las escaleras existentes (grupos de 4 cartas consecutivas del mismo palo. Ejemplo: 2-3-4-5 de Oros).
 
