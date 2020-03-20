@@ -118,10 +118,37 @@ describe("Cards", () => {
         ]),
       ]);
     });
+
+    it("returns all existing trios for different ranks", () => {
+      const subject = new Cards([
+        new CardFactory().build("5", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("2", { suit: "Hearts" }),
+        new CardFactory().build("K", { suit: "Hearts" }),
+        new CardFactory().build("K", { suit: "Hearts" }),
+        new CardFactory().build("K", { suit: "Hearts" }),
+      ]);
+
+      const trios = subject.getTrios();
+
+      expect(trios).toEqual([
+        new Cards([
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+          new CardFactory().build("2", { suit: "Hearts" }),
+        ]),
+        new Cards([
+          new CardFactory().build("K", { suit: "Hearts" }),
+          new CardFactory().build("K", { suit: "Hearts" }),
+          new CardFactory().build("K", { suit: "Hearts" }),
+        ]),
+      ]);
+    });
   });
 
   describe("#getStraights", () => {
-    it("returns no straights if there are not any", () => {
+    it("returns no straights if there aren't any", () => {
       const subject = new Cards([
         new CardFactory().build("A", { suit: "Hearts" }),
         new CardFactory().build("2", { suit: "Diamonds" }),
@@ -188,6 +215,7 @@ describe("Cards", () => {
         ]),
       ]);
     });
+
     it("returns multiple existing straights even for multiple suits", () => {
       const subject = new Cards([
         new CardFactory().build("J", { suit: "Diamonds" }),
@@ -204,6 +232,7 @@ describe("Cards", () => {
       const straights = subject.getStraights();
 
       expect(straights).toHaveLength(2);
+
       expect(straights).toEqual(
         expect.arrayContaining([
           new Cards([
