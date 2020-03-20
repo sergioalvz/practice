@@ -141,5 +141,11 @@ describe("CardFactory", () => {
       expect(result).toBeInstanceOf(Joker);
       expect(result.suit).toEqual("None");
     });
+
+    it("throws an exception for unknown cards", () => {
+      const subject = new CardFactory();
+
+      expect(() => subject.build("WUT", { suit: "None" })).toThrowError(/Invalid card/);
+    });
   });
 });

@@ -1,4 +1,4 @@
-import { chunk, flatten, groupBy, sortBy, uniqBy, isEqual } from "lodash";
+import { chunk, flatten, groupBy, sortBy, uniqBy, initial } from "lodash";
 import { Card } from "./Card";
 import { Settings } from "./Settings";
 
@@ -28,10 +28,18 @@ export class Cards {
 
     groupsBySuit.forEach((cards) => {
       cards.forEach((_, index) => {
-        const followingCards = cards.slice(index, index + 4);
+        const followingCards = cards.slice(index, index + Settings.NUMBER_OF_CARDS_FOR_STRAIGHT);
+
+        if (followingCards.length < Settings.NUMBER_OF_CARDS_FOR_STRAIGHT) {
+          return;
+        }
+
         const mapWithValidNext = followingCards.map((card, idx, col) => card.isValidNext(col[idx + 1]));
 
-        if (isEqual(mapWithValidNext, [true, true, true, false])) {
+        // It is a straight if all cards -except the last one- are subsequent
+        const isStraight = initial(mapWithValidNext).every(Boolean);
+
+        if (isStraight) {
           straights.push(new Cards(followingCards));
         }
       });

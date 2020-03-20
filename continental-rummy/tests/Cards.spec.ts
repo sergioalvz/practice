@@ -77,7 +77,7 @@ describe("Cards", () => {
   describe("#getTrios", () => {
     it("returns no trios if there aren't any", () => {
       const subject = new Cards([
-        new CardFactory().build("∞", { suit: "Hearts" }),
+        new CardFactory().build("5", { suit: "Hearts" }),
         new CardFactory().build("2", { suit: "Hearts" }),
         new CardFactory().build("Q", { suit: "Hearts" }),
         new CardFactory().build("K", { suit: "Hearts" }),
@@ -93,7 +93,7 @@ describe("Cards", () => {
 
     it("returns the existing trio", () => {
       const subject = new Cards([
-        new CardFactory().build("∞", { suit: "Hearts" }),
+        new CardFactory().build("5", { suit: "Hearts" }),
         new CardFactory().build("2", { suit: "Hearts" }),
         new CardFactory().build("2", { suit: "Hearts" }),
         new CardFactory().build("2", { suit: "Hearts" }),
@@ -115,7 +115,7 @@ describe("Cards", () => {
 
     it("returns multiples existing trios", () => {
       const subject = new Cards([
-        new CardFactory().build("∞", { suit: "Hearts" }),
+        new CardFactory().build("5", { suit: "Hearts" }),
         new CardFactory().build("2", { suit: "Hearts" }),
         new CardFactory().build("2", { suit: "Hearts" }),
         new CardFactory().build("2", { suit: "Hearts" }),

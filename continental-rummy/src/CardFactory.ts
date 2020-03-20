@@ -19,6 +19,8 @@ export class CardFactory {
     switch (rank) {
       case "A":
         return new Ace(options);
+      case "2":
+        return new Two(options);
       case "3":
         return new Three(options);
       case "4":
@@ -44,7 +46,7 @@ export class CardFactory {
       case "∞":
         return new Joker(options);
       default:
-        return new Two(options);
+        throw new Error("Invalid card");
     }
   }
 }
