@@ -1,60 +1,39 @@
 import { CardFactory } from "../src/CardFactory";
 import { Cards } from "../src/Cards";
 
+function testRankScore({ rank, score }: { rank: string; score: number }) {
+  it(`returns ${score} points for ${rank}`, async () => {
+    const subject = new Cards([new CardFactory().build(rank, { suit: "Hearts" })]); // suit doesn't matter here
+
+    const result = subject.getScore();
+
+    expect(result).toBe(score);
+  });
+}
+
 describe("Cards", () => {
   describe("#getScore", () => {
+    testRankScore({ rank: "2", score: 5 });
+    testRankScore({ rank: "3", score: 5 });
+    testRankScore({ rank: "4", score: 5 });
+    testRankScore({ rank: "5", score: 5 });
+    testRankScore({ rank: "6", score: 5 });
+    testRankScore({ rank: "7", score: 5 });
+    testRankScore({ rank: "8", score: 5 });
+    testRankScore({ rank: "9", score: 5 });
+    testRankScore({ rank: "10", score: 10 });
+    testRankScore({ rank: "J", score: 10 });
+    testRankScore({ rank: "Q", score: 10 });
+    testRankScore({ rank: "K", score: 10 });
+    testRankScore({ rank: "A", score: 20 });
+    testRankScore({ rank: "∞", score: 50 });
+
     it("returns 0 if there are no cards", async () => {
       const subject = new Cards([]);
 
       const score = subject.getScore();
 
       expect(score).toBe(0);
-    });
-
-    it("returns 5 points for each 2-9 card", () => {
-      const subject = new Cards([
-        new CardFactory().build("2", { suit: "Hearts" }),
-        new CardFactory().build("3", { suit: "Hearts" }),
-        new CardFactory().build("4", { suit: "Hearts" }),
-        new CardFactory().build("5", { suit: "Hearts" }),
-        new CardFactory().build("6", { suit: "Hearts" }),
-        new CardFactory().build("7", { suit: "Hearts" }),
-        new CardFactory().build("8", { suit: "Hearts" }),
-        new CardFactory().build("9", { suit: "Hearts" }),
-      ]);
-
-      const score = subject.getScore();
-
-      expect(score).toBe(40);
-    });
-
-    it("returns 10 points for each 10 and face card", () => {
-      const subject = new Cards([
-        new CardFactory().build("10", { suit: "Hearts" }),
-        new CardFactory().build("J", { suit: "Hearts" }),
-        new CardFactory().build("Q", { suit: "Hearts" }),
-        new CardFactory().build("K", { suit: "Hearts" }),
-      ]);
-
-      const score = subject.getScore();
-
-      expect(score).toBe(40);
-    });
-
-    it("returns 20 for each ace", () => {
-      const subject = new Cards([new CardFactory().build("A", { suit: "Hearts" })]);
-
-      const score = subject.getScore();
-
-      expect(score).toBe(20);
-    });
-
-    it("returns 50 for each Jokers", () => {
-      const subject = new Cards([new CardFactory().build("∞", { suit: "None" })]);
-
-      const score = subject.getScore();
-
-      expect(score).toBe(50);
     });
 
     it("returns the right score if there are multiple mixed ranks", () => {
