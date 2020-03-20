@@ -7,7 +7,7 @@
 
 ## Español
 
-El juego de cartas Continental es un juego de estrategia y azar, que consiste en realizar una serie de combinaciones (diferentes en cada ronda) con el conjunto de cartas que se tienen en la mano.
+El juego de cartas [Continental][continental-es] es un juego de estrategia y azar, que consiste en realizar una serie de combinaciones (diferentes en cada ronda) con el conjunto de cartas que se tienen en la mano.
 
 Habitualmente, se suele jugar con dos (o más) barajas de 54 cartas (52 + 2 comodines). Para los palos, se pueden utilizar los habituales de la baraja española (oros, copas, espadas y bastos) o los de la baraja francesa (corazones, diamantes, tréboles y picas).
 
@@ -74,3 +74,5 @@ Del mismo modo, es posible formar un trío o una escalera únicamente con comodi
 #### #4 Identify Straights
 
 #### #5 Bonus: Add support for Joker
+
+[continental-es]: https://es.wikipedia.org/wiki/Continental_(juego)
