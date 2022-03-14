@@ -20,7 +20,7 @@ describe("App", () => {
       expect(app.run(["RRR"])).toEqual(["0:0:W"]);
     });
 
-    it("can move the rovers to the left", async () => {
+    it("can moven the rovers to the left", async () => {
       expect(app.run(["LL"])).toEqual(["0:0:S"]);
     });
 
@@ -28,6 +28,7 @@ describe("App", () => {
       expect(app.run(["R"])).toEqual(["0:0:E"]);
       expect(app.run(["R"])).toEqual(["0:0:S"]);
       expect(app.run(["L"])).toEqual(["0:0:E"]);
+      expect(app.run(["L"])).toEqual(["0:0:N"]);
     });
 
     it("can move a rover forward", async () => {
