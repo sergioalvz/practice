@@ -43,5 +43,9 @@ describe("App", () => {
       expect(app.run(["RRMMMMMMMMMMMM"])).toEqual(["4:0:E"]);
       expect(app.run(["RMMMMMMMMMMMMMRM"])).toEqual(["3:4:W"]);
     });
+
+    it("ignores unknown instructions", function () {
+      expect(app.run(["RJJJJJSSSTM"])).toEqual(["1:0:E"]);
+    });
   });
 });

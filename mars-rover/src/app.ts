@@ -11,19 +11,21 @@ export class App {
         return rover.toString();
       }
 
-      const movements = command.split("");
+      const instructions = command.split("");
 
-      for (const movement of movements) {
-        if (movement === "L") {
-          rover.turnLeft();
-        }
-
-        if (movement === "R") {
-          rover.turnRight();
-        }
-
-        if (movement === "M") {
-          rover.move();
+      for (const instruction of instructions) {
+        switch (instruction) {
+          case "L":
+            rover.turnLeft();
+            break;
+          case "R":
+            rover.turnRight();
+            break;
+          case "M":
+            rover.move();
+            break;
+          default:
+            console.log(`"${instruction}" is not a valid instruction`);
         }
       }
 
