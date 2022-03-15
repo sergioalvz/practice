@@ -1,4 +1,5 @@
 import { Rover } from "./Rover";
+import { makeInstruction } from "./instructions";
 
 export class App {
   constructor(private rovers: Rover[]) {}
@@ -14,19 +15,7 @@ export class App {
       const instructions = command.split("");
 
       for (const instruction of instructions) {
-        switch (instruction) {
-          case "L":
-            rover.turnLeft();
-            break;
-          case "R":
-            rover.turnRight();
-            break;
-          case "M":
-            rover.move();
-            break;
-          default:
-            console.log(`"${instruction}" is not a valid instruction`);
-        }
+        makeInstruction(instruction, rover).execute();
       }
 
       return rover.toString();
