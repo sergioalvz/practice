@@ -12,4 +12,8 @@ export class Coordinates {
   public plus(coordinates: Coordinates): Coordinates {
     return new Coordinates(this.x + coordinates.getX(), this.y + coordinates.getY());
   }
+
+  public equals(coordinates: Coordinates): boolean {
+    return this.x === coordinates.getX() && this.y === coordinates.getY();
+  }
 }

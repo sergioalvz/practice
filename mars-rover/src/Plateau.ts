@@ -1,7 +1,13 @@
 import { Coordinates } from "./Coordinates";
 
 export class Plateau {
-  constructor(private size: number) {}
+  constructor(private size: number, private obstacles?: Coordinates[]) {}
+
+  public areThereAnyObstaclesAt(coordinates: Coordinates): boolean {
+    const obstacles = this.obstacles || [];
+
+    return obstacles.some((obstacle) => obstacle.equals(coordinates));
+  }
 
   public areCoordinatesInsideBoundaries(coordinates: Coordinates): boolean {
     return (
