@@ -1,6 +1,6 @@
 import { App } from "../src/app";
 import { Coordinates } from "../src/Coordinates";
-import { makeEast, makeNorth } from "../src/directions";
+import { makeEast, makeNorth, makeSouth, makeWest } from "../src/directions";
 import { Plateau } from "../src/Plateau";
 import { Rover } from "../src/Rover";
 
@@ -61,6 +61,21 @@ describe("App", () => {
         const app = new App([new Rover(new Coordinates(0, 0), makeEast(), new Plateau(5, [new Coordinates(1, 0)]))]);
 
         expect(app.run(["MRRRL"])).toEqual(["0:0:0:E"]);
+      });
+    });
+
+    describe("working with multiple rovers", function () {
+      it("works with more than one rover", function () {
+        const plateau = new Plateau(10, [new Coordinates(5, 6)]);
+
+        const app = new App([
+          new Rover(new Coordinates(0, 0), makeEast(), plateau),
+          new Rover(new Coordinates(4, 9), makeWest(), plateau),
+          new Rover(new Coordinates(3, 2), makeNorth(), plateau),
+          new Rover(new Coordinates(5, 5), makeSouth(), plateau),
+        ]);
+
+        expect(app.run(["LMRMMRM", "MMRMM", "MLMLM", "M"])).toEqual(["2:1:S", "2:7:N", "2:2:S", "0:5:5:S"]);
       });
     });
   });
