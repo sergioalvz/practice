@@ -8,15 +8,10 @@ export class App {
     return commands.map((command, index) => {
       const rover = this.rovers[index];
 
-      if (command === "") {
-        return rover.toString();
-      }
-
-      const instructions = command.split("");
-
-      for (const instruction of instructions) {
-        makeInstruction(instruction, rover).execute();
-      }
+      command
+        .split("")
+        .map((instruction) => makeInstruction(instruction, rover))
+        .forEach((instruction) => instruction.execute());
 
       return rover.toString();
     });
