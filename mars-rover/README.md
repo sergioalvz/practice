@@ -38,3 +38,7 @@ possible point and reports the obstacle by prefixing `O:` to the position string
 - given a grid with no obstacles, input `MMRMMLM` gives output `2:3:N`
 - given a grid with no obstacles, input `MMMMMMMMMM` gives output `0:0:N` (due to wrap-around)
 - given a grid with an obstacle at (0, 3), input `MMMM` gives output `O:0:2:N`
+
+---
+
+Credit: [Katalyst](https://katalyst.codurance.com/mars-rover)
