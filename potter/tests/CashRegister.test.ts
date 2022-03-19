@@ -68,16 +68,13 @@ describe("CashRegister", function () {
     expect(
       subject.calculate([
         new Book("1", SINGLE_BOOK_PRICE),
+        new Book("1", SINGLE_BOOK_PRICE),
+        new Book("1", SINGLE_BOOK_PRICE),
+        new Book("1", SINGLE_BOOK_PRICE),
+        new Book("2", SINGLE_BOOK_PRICE),
+        new Book("2", SINGLE_BOOK_PRICE),
         new Book("2", SINGLE_BOOK_PRICE),
         new Book("3", SINGLE_BOOK_PRICE),
-
-        new Book("1", SINGLE_BOOK_PRICE),
-        new Book("2", SINGLE_BOOK_PRICE),
-
-        new Book("1", SINGLE_BOOK_PRICE),
-        new Book("2", SINGLE_BOOK_PRICE),
-
-        new Book("1", SINGLE_BOOK_PRICE),
       ]),
     ).toEqual(
       applyDiscount(SINGLE_BOOK_PRICE * 3, 10) +
@@ -85,5 +82,20 @@ describe("CashRegister", function () {
         applyDiscount(SINGLE_BOOK_PRICE * 2, 5) +
         SINGLE_BOOK_PRICE,
     );
+  });
+
+  it("applies the most optimal pricing", function () {
+    expect(
+      subject.calculate([
+        new Book("1", SINGLE_BOOK_PRICE),
+        new Book("1", SINGLE_BOOK_PRICE),
+        new Book("2", SINGLE_BOOK_PRICE),
+        new Book("2", SINGLE_BOOK_PRICE),
+        new Book("3", SINGLE_BOOK_PRICE),
+        new Book("3", SINGLE_BOOK_PRICE),
+        new Book("4", SINGLE_BOOK_PRICE),
+        new Book("5", SINGLE_BOOK_PRICE),
+      ]),
+    ).toEqual(applyDiscount(SINGLE_BOOK_PRICE * 4, 20) + applyDiscount(SINGLE_BOOK_PRICE * 4, 20));
   });
 });
