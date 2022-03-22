@@ -32,3 +32,9 @@ Answer:
 = 25.6 * 2 
 = 51.20
 ```
+
+---
+
+Credit: [codingdojo.org][codingdojo]
+
+[codingdojo]: https://codingdojo.org/kata/Potter/
