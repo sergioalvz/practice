@@ -3,6 +3,24 @@ import { Pack } from "./Pack";
 import { max, times } from "lodash";
 import { EmptyPack } from "./EmptyPack";
 
+function simulate(packs: Pack[], options: { at: number }) {
+  return {
+    with: (book: Book) => {
+      return {
+        sum: (): number => {
+          const simulation = [
+            ...packs.slice(0, options.at),
+            packs[options.at].add(book),
+            ...packs.slice(options.at + 1),
+          ];
+
+          return simulation.reduce((sum, p) => sum + p.sum(), 0);
+        },
+      };
+    },
+  };
+}
+
 export class Packer {
   public pack(books: Book[]): Pack[] {
     if (books.length === 0) {
@@ -23,15 +41,8 @@ export class Packer {
 
     const packs: Pack[] = times(numberOfPacks, () => new EmptyPack());
 
-    const totalIfAddingTo = (index: number, book: Book): number => {
-      return [...packs.slice(0, index), packs[index].add(book), ...packs.slice(index + 1)].reduce(
-        (sum, p) => sum + p.sum(),
-        0,
-      );
-    };
-
     for (const book of books) {
-      let championIndex: number | null = null;
+      let mostOptimalPackIndex: number | null = null;
 
       for (let index = 0; index < packs.length; index++) {
         const pack = packs[index];
@@ -40,21 +51,21 @@ export class Packer {
           continue;
         }
 
-        if (championIndex === null) {
-          championIndex = index;
+        if (mostOptimalPackIndex === null) {
+          mostOptimalPackIndex = index;
           continue;
         }
 
-        const championSum = totalIfAddingTo(championIndex, book);
-        const candidateSum = totalIfAddingTo(index, book);
+        const mostOptimalPackSum = simulate(packs, { at: mostOptimalPackIndex }).with(book).sum();
+        const candidatePackSum = simulate(packs, { at: index }).with(book).sum();
 
-        if (candidateSum < championSum) {
-          championIndex = index;
+        if (candidatePackSum < mostOptimalPackSum) {
+          mostOptimalPackIndex = index;
         }
       }
 
-      if (championIndex !== null) {
-        packs[championIndex] = packs[championIndex].add(book);
+      if (mostOptimalPackIndex !== null) {
+        packs[mostOptimalPackIndex] = packs[mostOptimalPackIndex].add(book);
       }
     }
 
