@@ -6,6 +6,10 @@ export class FivePack extends Pack {
     super(books);
   }
 
+  public add(book: Book): Pack {
+    throw new Error("FivePack instances cannot add another element!");
+  }
+
   protected discount(): number {
     return 25;
   }

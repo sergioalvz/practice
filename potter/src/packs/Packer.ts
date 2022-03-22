@@ -1,7 +1,7 @@
 import { Book } from "../Book";
 import { Pack } from "./Pack";
 import { max, times } from "lodash";
-import { makePack } from "./index";
+import { EmptyPack } from "./EmptyPack";
 
 export class Packer {
   public pack(books: Book[]): Pack[] {
@@ -21,42 +21,39 @@ export class Packer {
       throw new Error("numberOfPacks was not expected to be undefined");
     }
 
-    const groups: Book[][] = times(numberOfPacks, () => []);
+    const packs: Pack[] = times(numberOfPacks, () => new EmptyPack());
+
+    const totalIfAddingTo = (index: number, book: Book): number => {
+      return [...packs.slice(0, index), packs[index].add(book), ...packs.slice(index + 1)].reduce(
+        (sum, p) => sum + p.sum(),
+        0,
+      );
+    };
 
     for (const book of books) {
       let championIndex: number | null = null;
 
-      for (let i = 0; i < groups.length; i++) {
-        const group = groups[i];
+      for (let i = 0; i < packs.length; i++) {
+        const pack = packs[i];
 
-        const canAdd = !group.some((b) => b.getTitle() === book.getTitle());
-
-        if (canAdd) {
+        if (pack.canAdd(book)) {
           if (championIndex === null) {
             championIndex = i;
-          } else {
-            const virtualChampion = [
-              ...groups.slice(0, championIndex),
-              groups[championIndex].concat(book),
-              ...groups.slice(championIndex + 1),
-            ];
+            continue;
+          }
 
-            const virtualChampionSum = virtualChampion.map(makePack).reduce((sum, p) => sum + p.sum(), 0);
+          const championSum = totalIfAddingTo(championIndex, book);
+          const candidateSum = totalIfAddingTo(i, book);
 
-            const virtualCandidate = [...groups.slice(0, i), groups[i].concat(book), ...groups.slice(i + 1)];
-
-            const virtualCandidateSum = virtualCandidate.map(makePack).reduce((sum, p) => sum + p.sum(), 0);
-
-            if (virtualCandidateSum < virtualChampionSum) {
-              championIndex = i;
-            }
+          if (candidateSum < championSum) {
+            championIndex = i;
           }
         }
       }
 
-      if (championIndex !== null) groups[championIndex].push(book);
+      if (championIndex !== null) packs[championIndex] = packs[championIndex].add(book);
     }
 
-    return groups.map(makePack);
+    return packs;
   }
 }

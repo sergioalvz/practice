@@ -1,6 +1,10 @@
 export class Book {
   constructor(private title: string, private price: number) {}
 
+  public equals(book: Book): boolean {
+    return book.getTitle() === this.title;
+  }
+
   public getPrice(): number {
     return this.price;
   }
