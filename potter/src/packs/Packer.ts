@@ -33,25 +33,29 @@ export class Packer {
     for (const book of books) {
       let championIndex: number | null = null;
 
-      for (let i = 0; i < packs.length; i++) {
-        const pack = packs[i];
+      for (let index = 0; index < packs.length; index++) {
+        const pack = packs[index];
 
-        if (pack.canAdd(book)) {
-          if (championIndex === null) {
-            championIndex = i;
-            continue;
-          }
+        if (!pack.canAdd(book)) {
+          continue;
+        }
 
-          const championSum = totalIfAddingTo(championIndex, book);
-          const candidateSum = totalIfAddingTo(i, book);
+        if (championIndex === null) {
+          championIndex = index;
+          continue;
+        }
 
-          if (candidateSum < championSum) {
-            championIndex = i;
-          }
+        const championSum = totalIfAddingTo(championIndex, book);
+        const candidateSum = totalIfAddingTo(index, book);
+
+        if (candidateSum < championSum) {
+          championIndex = index;
         }
       }
 
-      if (championIndex !== null) packs[championIndex] = packs[championIndex].add(book);
+      if (championIndex !== null) {
+        packs[championIndex] = packs[championIndex].add(book);
+      }
     }
 
     return packs;
