@@ -8,6 +8,7 @@ This repository contains different exercises for _deliberately practice_ with ne
 - [fizzbuzz-plugin](fizzbuzz-plugin): Experimenting with a plugin-like design while resolving [FizzBuzz][fizzbuzz]
 - [game-of-life-atdd](game-of-life-atdd): Experimenting with [ATDD][atdd] while resolving the [Game Of Life][gameoflife]
 - [mars-rover](mars-rover): Solving the [Mars Rover][marsrover] kata
+- [potter](potter): Solving the [Potter][potter] kata
 
 ---
 
@@ -17,3 +18,4 @@ MIT License
 [atdd]: https://en.wikipedia.org/wiki/Acceptance_test%E2%80%93driven_development
 [gameoflife]: http://codingdojo.org/kata/GameOfLife/
 [marsrover]: https://katalyst.codurance.com/mars-rover
+[potter]: https://codingdojo.org/kata/Potter/
